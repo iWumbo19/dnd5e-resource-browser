@@ -12,6 +12,8 @@ namespace dnd5e_resource_browser
     {
         public static SpellsReference Spells;
         public static List<string> SpellList = new List<string>();
+        public static List<string> Clear = new List<string>();
+        public static MainWindow window;
 
         public static void UpdateSpells(SpellsReference spells)
         {
@@ -21,6 +23,7 @@ namespace dnd5e_resource_browser
             {
                 SpellList.Add(item.name);
             }
+            window.SpellListCombo.ItemsSource = SpellList;
         }
 
         public static string GetSpell(int index)

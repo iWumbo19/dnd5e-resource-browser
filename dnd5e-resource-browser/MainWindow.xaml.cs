@@ -27,18 +27,21 @@ namespace dnd5e_resource_browser
         public MainWindow()
         {
             InitializeComponent();
-            InitializeData();            
+            InitializeData();
         }
 
 
 
         private void InitializeData()
         {
+            Data.window = this;
+
             string spellJSON = new WebClient().DownloadString("https://www.dnd5eapi.co/api/spells/");
             Data.UpdateSpells(JsonConvert.DeserializeObject<SpellsReference>(spellJSON));
-            SpellListCombo.DataContext = Data.SpellList;
-            SpellLevelCombo.ItemsSource = _spellLevels;
 
+            SpellListCombo.ItemsSource = Data.SpellList;
+            SpellListCombo.SelectedIndex = 0;
+            SpellLevelCombo.ItemsSource = _spellLevels;
         }
 
         private void SpellListCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
