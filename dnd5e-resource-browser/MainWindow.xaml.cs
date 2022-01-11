@@ -38,15 +38,17 @@ namespace dnd5e_resource_browser
 
             string spellJSON = new WebClient().DownloadString("https://www.dnd5eapi.co/api/spells/");
             Data.UpdateSpells(JsonConvert.DeserializeObject<SpellsReference>(spellJSON));
+            UpdateSpellCombo();
 
-            SpellListCombo.ItemsSource = Data.SpellList;
-            SpellListCombo.SelectedIndex = 0;
             SpellLevelCombo.ItemsSource = _spellLevels;
         }
 
         private void SpellListCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DisplayWindow.Text = Data.GetSpell(SpellListCombo.SelectedIndex);
+            if (SpellListCombo.SelectedIndex != -1)
+            {
+                DisplayWindow.Text = Data.GetSpell(SpellListCombo.SelectedIndex);
+            }       
         }
 
         private void SpellLevelCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -54,13 +56,25 @@ namespace dnd5e_resource_browser
             if ((int)SpellLevelCombo.SelectedItem == 0)
             {
                 string spellJSON = new WebClient().DownloadString("https://www.dnd5eapi.co/api/spells/");
-                Data.UpdateSpells(JsonConvert.DeserializeObject<SpellsReference>(spellJSON)); 
+                Data.UpdateSpells(JsonConvert.DeserializeObject<SpellsReference>(spellJSON));
+                UpdateSpellCombo();
             }
             else
             {
                 string spellJSON = new WebClient().DownloadString($"https://www.dnd5eapi.co/api/spells?level={SpellLevelCombo.SelectedItem}");
                 Data.UpdateSpells(JsonConvert.DeserializeObject<SpellsReference>(spellJSON));
+                UpdateSpellCombo();
             }
+        }
+
+        private void UpdateSpellCombo()
+        {
+            SpellListCombo.Items.Clear();
+            foreach (var item in Data.SpellList)
+            {
+                SpellListCombo.Items.Add(item);
+            }
+            SpellListCombo.Items.Refresh();
         }
     }
 }

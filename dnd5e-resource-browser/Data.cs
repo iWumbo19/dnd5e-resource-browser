@@ -23,7 +23,6 @@ namespace dnd5e_resource_browser
             {
                 SpellList.Add(item.name);
             }
-            window.SpellListCombo.ItemsSource = SpellList;
         }
 
         public static string GetSpell(int index)
