@@ -33,4 +33,6 @@ namespace dnd5e_resource_browser
         public int count;
         public APIReference[] results;
     }
+
+    
 }

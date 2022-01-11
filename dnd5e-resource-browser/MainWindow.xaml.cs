@@ -23,24 +23,41 @@ namespace dnd5e_resource_browser
     /// </summary>
     public partial class MainWindow : Window
     {
+        private int[] _spellLevels = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         public MainWindow()
         {
             InitializeComponent();
+            InitializeData();            
         }
 
-        private void GoButton_Click(object sender, RoutedEventArgs e)
+
+
+        private void InitializeData()
         {
-            string json = new WebClient().DownloadString("https://www.dnd5eapi.co/api/spells/");
+            string spellJSON = new WebClient().DownloadString("https://www.dnd5eapi.co/api/spells/");
+            Data.UpdateSpells(JsonConvert.DeserializeObject<SpellsReference>(spellJSON));
+            SpellListCombo.DataContext = Data.SpellList;
+            SpellLevelCombo.ItemsSource = _spellLevels;
 
-            SpellsReference items = JsonConvert.DeserializeObject<SpellsReference>(json);
+        }
 
-            string output = "";
-            foreach (APIReference item in items.results)
+        private void SpellListCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DisplayWindow.Text = Data.GetSpell(SpellListCombo.SelectedIndex);
+        }
+
+        private void SpellLevelCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((int)SpellLevelCombo.SelectedItem == 0)
             {
-                output += $"{item.name}\n"; 
+                string spellJSON = new WebClient().DownloadString("https://www.dnd5eapi.co/api/spells/");
+                Data.UpdateSpells(JsonConvert.DeserializeObject<SpellsReference>(spellJSON)); 
             }
-
-            DisplayWindow.Text = $"{output}";
+            else
+            {
+                string spellJSON = new WebClient().DownloadString($"https://www.dnd5eapi.co/api/spells?level={SpellLevelCombo.SelectedItem}");
+                Data.UpdateSpells(JsonConvert.DeserializeObject<SpellsReference>(spellJSON));
+            }
         }
     }
 }

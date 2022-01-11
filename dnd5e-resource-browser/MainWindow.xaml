@@ -5,10 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:dnd5e_resource_browser"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="873">
     <Grid>
-        <Button x:Name="GoButton" Content="GRAB IT!!!" HorizontalAlignment="Left" Margin="663,37,0,0" VerticalAlignment="Top" Click="GoButton_Click"/>
         <TextBox x:Name="DisplayWindow" Margin="10,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="247" HorizontalAlignment="Left" Width="569"/>
+        <ComboBox x:Name="SpellListCombo" HorizontalAlignment="Left" Margin="597,132,0,0" VerticalAlignment="Top" Width="245" SelectionChanged="SpellListCombo_SelectionChanged" IsReadOnly="True" SelectedIndex="0">
+            <ComboBox.DataContext>
+                <local:SpellsReference/>
+            </ComboBox.DataContext>
+        </ComboBox>
+        <ComboBox x:Name="SpellLevelCombo" HorizontalAlignment="Left" Margin="597,175,0,0" VerticalAlignment="Top" Width="54" SelectionChanged="SpellLevelCombo_SelectionChanged" SelectedIndex="0"/>
 
     </Grid>
 </Window>
