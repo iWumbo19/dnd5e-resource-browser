@@ -36,8 +36,7 @@ namespace dnd5e_resource_browser
         {
             Data.window = this;
 
-            string spellJSON = new WebClient().DownloadString("https://www.dnd5eapi.co/api/spells/");
-            Data.UpdateSpells(JsonConvert.DeserializeObject<SpellsReference>(spellJSON));
+            Data.UpdateSpells(JsonConvert.DeserializeObject<SpellsReference>(APIGet.Full(APIParam.Spells)));
             UpdateSpellCombo();
 
             SpellLevelCombo.ItemsSource = _spellLevels;
@@ -71,9 +70,7 @@ namespace dnd5e_resource_browser
         {
             SpellListCombo.Items.Clear();
             foreach (var item in Data.SpellList)
-            {
                 SpellListCombo.Items.Add(item);
-            }
             SpellListCombo.Items.Refresh();
         }
     }

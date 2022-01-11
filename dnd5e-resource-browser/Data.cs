@@ -30,8 +30,8 @@ namespace dnd5e_resource_browser
             string url = Spells.results[index].url;
             string spellJSON = new WebClient().DownloadString($"https://www.dnd5eapi.co{url}");
             Spell spell = JsonConvert.DeserializeObject<Spell>(spellJSON);
-            StringBuilder sb = new StringBuilder();
 
+            StringBuilder sb = new StringBuilder();
             sb.AppendLine($"Name: {spell.name}");
             sb.AppendLine($"Level: {spell.level}");
             sb.AppendLine($"Concentration: {spell.concentration}");
