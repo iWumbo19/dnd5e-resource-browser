@@ -35,69 +35,7 @@ namespace dnd5e_resource_browser
         private static string _traits = "/traits";
         private static string _weapon_properties = "/weapon-properties";
 
-        public static string Full(APIParam param)
-        {
-            try
-            {
-                switch (param)
-                {
-                    case APIParam.AbilityScores:
-                        return new WebClient().DownloadString(_base + _ability_scores);
-                    case APIParam.Alignments:
-                        return new WebClient().DownloadString(_base + _alignments);
-                    case APIParam.Backgrounds:
-                        return new WebClient().DownloadString(_base + _backgrounds);
-                    case APIParam.Classes:
-                        return new WebClient().DownloadString(_base + _classes);
-                    case APIParam.Conditions:
-                        return new WebClient().DownloadString(_base + _conditions);
-                    case APIParam.DamageTypes:
-                        return new WebClient().DownloadString(_base + _damage_types);
-                    case APIParam.EquipmentCat:
-                        return new WebClient().DownloadString(_base + _equipment_cat);
-                    case APIParam.Equipment:
-                        return new WebClient().DownloadString(_base + _equipment);
-                    case APIParam.Feats:
-                        return new WebClient().DownloadString(_base + _feats);
-                    case APIParam.Features:
-                        return new WebClient().DownloadString(_base + _features);
-                    case APIParam.Languages:
-                        return new WebClient().DownloadString(_base + _languages);
-                    case APIParam.MagicItems:
-                        return new WebClient().DownloadString(_base + _magic_items);
-                    case APIParam.MagicSchools:
-                        return new WebClient().DownloadString(_base + _magic_schools);
-                    case APIParam.Monsters:
-                        return new WebClient().DownloadString(_base + _monsters);
-                    case APIParam.Proficiencies:
-                        return new WebClient().DownloadString(_base + _proficiencies);
-                    case APIParam.Races:
-                        return new WebClient().DownloadString(_base + _races);
-                    case APIParam.Rules:
-                        return new WebClient().DownloadString(_base + _rules);
-                    case APIParam.RuleSections:
-                        return new WebClient().DownloadString(_base + _rule_sections);
-                    case APIParam.Skills:
-                        return new WebClient().DownloadString(_base + _skills);
-                    case APIParam.Spells:
-                        return new WebClient().DownloadString(_base + _spells);
-                    case APIParam.Subclasses:
-                        return new WebClient().DownloadString(_base + _subclasses);
-                    case APIParam.Subraces:
-                        return new WebClient().DownloadString(_base + _subraces);
-                    case APIParam.Traits:
-                        return new WebClient().DownloadString(_base + _traits);
-                    case APIParam.WeaponProperties:
-                        return new WebClient().DownloadString(_base + _weapon_properties);
-                    default:
-                        return null;
-                }
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
+        
     }
 
     public enum APIParam

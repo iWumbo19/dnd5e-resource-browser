@@ -36,7 +36,7 @@ namespace dnd5e_resource_browser
         {
             Data.window = this;
 
-            Data.UpdateSpells(JsonConvert.DeserializeObject<SpellsReference>(APIGet.Full(APIParam.Spells)));
+            Data.UpdateSpells(JsonConvert.DeserializeObject<CategoryReference>(APIGet.Full(APIParam.Spells)));
             UpdateSpellCombo();
 
             SpellLevelCombo.ItemsSource = _spellLevels;
@@ -55,13 +55,13 @@ namespace dnd5e_resource_browser
             if ((int)SpellLevelCombo.SelectedItem == 0)
             {
                 string spellJSON = new WebClient().DownloadString("https://www.dnd5eapi.co/api/spells/");
-                Data.UpdateSpells(JsonConvert.DeserializeObject<SpellsReference>(spellJSON));
+                Data.UpdateSpells(JsonConvert.DeserializeObject<CategoryReference>(spellJSON));
                 UpdateSpellCombo();
             }
             else
             {
                 string spellJSON = new WebClient().DownloadString($"https://www.dnd5eapi.co/api/spells?level={SpellLevelCombo.SelectedItem}");
-                Data.UpdateSpells(JsonConvert.DeserializeObject<SpellsReference>(spellJSON));
+                Data.UpdateSpells(JsonConvert.DeserializeObject<CategoryReference>(spellJSON));
                 UpdateSpellCombo();
             }
         }

@@ -6,10 +6,5 @@
         xmlns:local="clr-namespace:dnd5e_resource_browser"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="873">
-    <Grid>
-        <TextBox x:Name="DisplayWindow" Margin="10,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="247" HorizontalAlignment="Left" Width="569"/>
-        <ComboBox x:Name="SpellListCombo" HorizontalAlignment="Left" Margin="597,132,0,0" VerticalAlignment="Top" Width="245" SelectionChanged="SpellListCombo_SelectionChanged"/>
-        <ComboBox x:Name="SpellLevelCombo" HorizontalAlignment="Left" Margin="597,175,0,0" VerticalAlignment="Top" Width="54" SelectionChanged="SpellLevelCombo_SelectionChanged"/>
-
-    </Grid>
+    <Grid/>
 </Window>
