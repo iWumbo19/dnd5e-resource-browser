@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using Newtonsoft.Json;
 using System.IO;
 using System.Net;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace dnd5e_resource_browser
 {
@@ -24,54 +26,46 @@ namespace dnd5e_resource_browser
     public partial class MainWindow : Window
     {
         private int[] _spellLevels = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        private delegate void Fetch();
         public MainWindow()
         {
+
             InitializeComponent();
             InitializeData();
+            WaitLabel.Content = "Waiting for retch request";
         }
 
 
 
         private void InitializeData()
         {
-            Data.window = this;
+            Data.mainWindow = this;
 
-            Data.UpdateSpells(JsonConvert.DeserializeObject<CategoryReference>(APIGet.Full(APIParam.Spells)));
-            UpdateSpellCombo();
 
-            SpellLevelCombo.ItemsSource = _spellLevels;
         }
 
-        private void SpellListCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void GoButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SpellListCombo.SelectedIndex != -1)
-            {
-                DisplayWindow.Text = Data.GetSpell(SpellListCombo.SelectedIndex);
-            }       
+            Fetch fetch = FetchDatabase;            
+            Task.Run(() => fetch());            
         }
 
-        private void SpellLevelCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void FetchDatabase()
         {
-            if ((int)SpellLevelCombo.SelectedItem == 0)
+            this.Dispatcher.Invoke(() =>
             {
-                string spellJSON = new WebClient().DownloadString("https://www.dnd5eapi.co/api/spells/");
-                Data.UpdateSpells(JsonConvert.DeserializeObject<CategoryReference>(spellJSON));
-                UpdateSpellCombo();
-            }
-            else
+                WaitLabel.Content = "Fetching database... This could take several seconds";
+            });
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            Data.PullJSON();
+            stopWatch.Stop();
+            TimeSpan ts = stopWatch.Elapsed;
+            this.Dispatcher.Invoke(() =>
             {
-                string spellJSON = new WebClient().DownloadString($"https://www.dnd5eapi.co/api/spells?level={SpellLevelCombo.SelectedItem}");
-                Data.UpdateSpells(JsonConvert.DeserializeObject<CategoryReference>(spellJSON));
-                UpdateSpellCombo();
-            }
+                WaitLabel.Content = $"Fetched database in {ts.TotalSeconds}";
+            });
         }
 
-        private void UpdateSpellCombo()
-        {
-            SpellListCombo.Items.Clear();
-            foreach (var item in Data.SpellList)
-                SpellListCombo.Items.Add(item);
-            SpellListCombo.Items.Refresh();
-        }
     }
 }
