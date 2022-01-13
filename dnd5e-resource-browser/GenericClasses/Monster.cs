@@ -17,7 +17,7 @@ namespace dnd5e_resource_browser
         public int armor_class;
         public int hit_points;
         public string hit_dice;
-        public APIReference forms;
+        public APIReference[] forms;
         public object speed;
         public int strength;
         public int dexterity;
@@ -26,13 +26,13 @@ namespace dnd5e_resource_browser
         public int wisdom;
         public int charisma;
         public Proficiency[] proficiencies;
-        public APIReference[] damage_vulnerabilities;
-        public APIReference[] damage_resistances;
-        public APIReference[] damage_immunities;
+        public string[] damage_vulnerabilities;
+        public string[] damage_resistances;
+        public string[] damage_immunities;
         public APIReference[] condition_immunities;
         public object senses;
         public string languages;
-        public int challenge_rating;
+        public double challenge_rating;
         public object[] speical_abilities;
         public object[] actions;
         public object[] legendary_actions;

@@ -25,12 +25,16 @@ namespace dnd5e_resource_browser
         public static List<string> MonsterNameList = new List<string>();
         public static List<Monster> MonsterObjList = new List<Monster>();
 
+        public static List<string> EquipmentNameList = new List<string>();
+        public static List<Equipment> EquipmentObjList = new List<Equipment>();
+
         public static bool PullJSON()
         {
             InitializeSpells();
             InitializeClasses();
             InitializeRaces();
             InitializeMonsters();
+            InitializeEquipment();
 
             return true;
         }
@@ -73,13 +77,25 @@ namespace dnd5e_resource_browser
 
         public static void InitializeMonsters()
         {
-            string collectionJSON = new WebClient().DownloadString("https://www.dnd5eapi.co/api/races/");
+            string collectionJSON = new WebClient().DownloadString("https://www.dnd5eapi.co/api/monsters/");
             CategoryReference monsterReference = JsonConvert.DeserializeObject<CategoryReference>(collectionJSON);
             foreach (APIReference item in monsterReference.results)
             {
                 MonsterNameList.Add(item.name);
                 string monsterJSON = new WebClient().DownloadString("https://www.dnd5eapi.co" + item.url);
                 MonsterObjList.Add(JsonConvert.DeserializeObject<Monster>(monsterJSON));
+            }
+        }
+
+        public static void InitializeEquipment()
+        {
+            string collectionJSON = new WebClient().DownloadString("https://www.dnd5eapi.co/api/equipment/");
+            CategoryReference equipmentReference = JsonConvert.DeserializeObject<CategoryReference>(collectionJSON);
+            foreach (APIReference item in equipmentReference.results)
+            {
+                EquipmentNameList.Add(item.name);
+                string equipmentJSON = new WebClient().DownloadString("https://www.dnd5eapi.co" + item.url);
+                EquipmentObjList.Add(JsonConvert.DeserializeObject<Equipment>(equipmentJSON));
             }
         }
 

@@ -18,7 +18,7 @@ namespace dnd5e_resource_browser
         public object damage;
         public object two_handed_damage;
         public object range;
-        public int weight;
+        public double weight;
         public APIReference[] properties;
         public string url;
     }
