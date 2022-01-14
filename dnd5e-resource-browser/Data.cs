@@ -31,10 +31,10 @@ namespace dnd5e_resource_browser
         public static bool PullJSON()
         {
             InitializeSpells();
-            InitializeClasses();
-            InitializeRaces();
-            InitializeMonsters();
-            InitializeEquipment();
+            //InitializeClasses();
+            //InitializeRaces();
+            //InitializeMonsters();
+            //InitializeEquipment();
 
             return true;
         }

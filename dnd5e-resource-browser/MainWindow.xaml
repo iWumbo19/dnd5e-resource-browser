@@ -7,7 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="873">
     <Grid>
-        <Label x:Name="WaitLabel" Content="Null" HorizontalAlignment="Left" Margin="126,72,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="GoButton" Content="FetchDatabase" HorizontalAlignment="Left" Margin="629,85,0,0" VerticalAlignment="Top" Click="GoButton_Click"/>
+        <TabControl Margin="0,10,0,0">
+            <TabItem x:Name="HomeTab" Header="Home">
+                <Grid Background="#FFE5E5E5">
+                    <Label x:Name="WaitLabel" Content="Null" HorizontalAlignment="Left" Margin="140,47,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="GoButton" Content="FetchDatabase" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Click="GoButton_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="SpellTab" Header="TabItem">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

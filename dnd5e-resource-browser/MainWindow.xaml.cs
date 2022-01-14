@@ -27,12 +27,15 @@ namespace dnd5e_resource_browser
     {
         private int[] _spellLevels = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         private delegate void Fetch();
+        private bool DatabaseReady;
         public MainWindow()
         {
 
             InitializeComponent();
             InitializeData();
             WaitLabel.Content = "Waiting for retch request";
+            DatabaseReady = false;
+            ToggleTabs();
         }
 
 
@@ -46,8 +49,21 @@ namespace dnd5e_resource_browser
 
         private void GoButton_Click(object sender, RoutedEventArgs e)
         {
-            Fetch fetch = FetchDatabase;            
-            Task.Run(() => fetch());            
+            try
+            {
+                Fetch fetch = FetchDatabase;
+                Task.Run(() => fetch());
+                DatabaseReady = true;
+            }
+            catch
+            {
+                WaitLabel.Content = "Could not reach API service. Try again later";
+            }
+            finally
+            {
+                ToggleTabs();
+            }
+            
         }
 
         private void FetchDatabase()
@@ -65,6 +81,18 @@ namespace dnd5e_resource_browser
             {
                 WaitLabel.Content = $"Fetched database in {ts.TotalSeconds}";
             });
+        }
+
+        private void ToggleTabs()
+        {
+            if(DatabaseReady)
+            {
+                SpellTab.IsEnabled = true;
+            }
+            else
+            {
+                SpellTab.IsEnabled = false;
+            }
         }
 
     }
