@@ -117,7 +117,6 @@ namespace dnd5e_resource_browser
                 MagicItemObjList.Add(JsonConvert.DeserializeObject<MagicItem>(magicitemJSON));
             }
         }
-
         #endregion
 
 

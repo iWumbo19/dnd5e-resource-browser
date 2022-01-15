@@ -25,7 +25,6 @@ namespace dnd5e_resource_browser
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int[] _spellLevels = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         private delegate void Fetch();
         private bool DatabaseReady;
         public MainWindow()
@@ -36,32 +35,20 @@ namespace dnd5e_resource_browser
             WaitLabel.Content = "Waiting for fetch request";
             DatabaseReady = false;
             ToggleTabs();
+            Fetch fetch = FetchDatabase;
+            Task.Run(() => fetch());
         }
-
-
 
         private void InitializeData()
         {
             Data.mainWindow = this;
-
-
-        }
-
-        private void GoButton_Click(object sender, RoutedEventArgs e)
-        {
-            //Fetch fetch = FetchDatabase;
-            //Task.Run(() => fetch());
-            FetchDatabase();                        
-            DatabaseReady = true;
-            SetupTabs();
-            ToggleTabs();            
         }
 
         private void FetchDatabase()
         {
             this.Dispatcher.Invoke(() =>
             {
-                WaitLabel.Content = "Fetching database... This could take several seconds";
+                WaitLabel.Content = "Fetching database... This could take up to a minute";
             });
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -70,7 +57,10 @@ namespace dnd5e_resource_browser
             TimeSpan ts = stopWatch.Elapsed;
             this.Dispatcher.Invoke(() =>
             {
-                WaitLabel.Content = $"Fetched database in {ts.TotalSeconds}";
+                WaitLabel.Content = $"Fetched database in {(int)ts.TotalSeconds} seconds";
+                DatabaseReady = true;
+                SetupTabs();
+                ToggleTabs();
             });
         }
 
@@ -84,7 +74,6 @@ namespace dnd5e_resource_browser
                 MonstersTab.IsEnabled = true;
                 EquipmentTab.IsEnabled = true;
                 MagicItemTab.IsEnabled = true;
-                GoButton.IsEnabled = false;
             }
             else
             {
@@ -94,7 +83,6 @@ namespace dnd5e_resource_browser
                 MonstersTab.IsEnabled = false;
                 EquipmentTab.IsEnabled = false;
                 MagicItemTab.IsEnabled = false;
-                GoButton.IsEnabled = true;
             }
         }
 
@@ -108,6 +96,10 @@ namespace dnd5e_resource_browser
             SetupMagicItemTab();
         }
 
+
+        #region TAB METHODS
+
+        #region SPELL TAB
         private void SetupSpellTab()
         {
             SpellListBox.Items.Clear();
@@ -122,7 +114,9 @@ namespace dnd5e_resource_browser
         {
             SpellInfoText.Text = Data.SpellInfo(SpellListBox.SelectedIndex);
         }
+        #endregion
 
+        #region CLASS TAB
         private void SetupClassesTab()
         {
             ClassListBox.Items.Clear();
@@ -137,7 +131,9 @@ namespace dnd5e_resource_browser
         {
             ClassInfoText.Text = Data.ClassInfo(ClassListBox.SelectedIndex);
         }
+        #endregion
 
+        #region RACES TAB
         private void SetupRacesTab()
         {
             RacesListBox.Items.Clear();
@@ -152,7 +148,9 @@ namespace dnd5e_resource_browser
         {
             RacesInfoText.Text = Data.RaceInfo(RacesListBox.SelectedIndex);
         }
+        #endregion
 
+        #region MONSTER TAB
         public void SetupMonsterTab()
         {
             MonsterListBox.Items.Clear();
@@ -167,7 +165,9 @@ namespace dnd5e_resource_browser
         {
             MonsterInfoText.Text = Data.MonsterInfo(MonsterListBox.SelectedIndex);
         }
+        #endregion
 
+        #region EQUIPMENT TAB
         public void SetupEquipmentTab()
         {
             EquipmentListBox.Items.Clear();
@@ -182,7 +182,9 @@ namespace dnd5e_resource_browser
         {
             EquipmentInfoText.Text = Data.EquipmentInfo(EquipmentListBox.SelectedIndex);
         }
+        #endregion
 
+        #region MAGIC ITEM TAB
         private void SetupMagicItemTab()
         {
             MagicItemListBox.Items.Clear();
@@ -197,5 +199,8 @@ namespace dnd5e_resource_browser
         {
             MagicItemInfoText.Text = Data.MagicItemInfo(MagicItemListBox.SelectedIndex);
         }
+        #endregion
+
+        #endregion
     }
 }

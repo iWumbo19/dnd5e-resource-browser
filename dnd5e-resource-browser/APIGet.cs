@@ -33,9 +33,7 @@ namespace dnd5e_resource_browser
         private static string _subclasses = "/subclasses";
         private static string _subraces = "/subraces";
         private static string _traits = "/traits";
-        private static string _weapon_properties = "/weapon-properties";
-
-        
+        private static string _weapon_properties = "/weapon-properties";        
     }
 
     public enum APIParam
