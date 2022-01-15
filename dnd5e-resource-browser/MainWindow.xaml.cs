@@ -33,7 +33,7 @@ namespace dnd5e_resource_browser
 
             InitializeComponent();
             InitializeData();
-            WaitLabel.Content = "Waiting for retch request";
+            WaitLabel.Content = "Waiting for fetch request";
             DatabaseReady = false;
             ToggleTabs();
         }
@@ -49,21 +49,12 @@ namespace dnd5e_resource_browser
 
         private void GoButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                Fetch fetch = FetchDatabase;
-                Task.Run(() => fetch());
-                DatabaseReady = true;
-            }
-            catch
-            {
-                WaitLabel.Content = "Could not reach API service. Try again later";
-            }
-            finally
-            {
-                ToggleTabs();
-            }
-            
+            //Fetch fetch = FetchDatabase;
+            //Task.Run(() => fetch());
+            FetchDatabase();                        
+            DatabaseReady = true;
+            SetupTabs();
+            ToggleTabs();            
         }
 
         private void FetchDatabase()
@@ -88,12 +79,123 @@ namespace dnd5e_resource_browser
             if(DatabaseReady)
             {
                 SpellTab.IsEnabled = true;
+                ClassesTab.IsEnabled = true;
+                RacesTab.IsEnabled = true;
+                MonstersTab.IsEnabled = true;
+                EquipmentTab.IsEnabled = true;
+                MagicItemTab.IsEnabled = true;
+                GoButton.IsEnabled = false;
             }
             else
             {
                 SpellTab.IsEnabled = false;
+                ClassesTab.IsEnabled = false;
+                RacesTab.IsEnabled = false;
+                MonstersTab.IsEnabled = false;
+                EquipmentTab.IsEnabled = false;
+                MagicItemTab.IsEnabled = false;
+                GoButton.IsEnabled = true;
             }
         }
 
+        private void SetupTabs()
+        {
+            SetupSpellTab();
+            SetupClassesTab();
+            SetupRacesTab();
+            SetupMonsterTab();
+            SetupEquipmentTab();
+            SetupMagicItemTab();
+        }
+
+        private void SetupSpellTab()
+        {
+            SpellListBox.Items.Clear();
+            foreach (var item in Data.SpellNameList)
+            {
+                SpellListBox.Items.Add(item);
+            }
+            SpellListBox.Items.Refresh();
+        }
+
+        private void SpellListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SpellInfoText.Text = Data.SpellInfo(SpellListBox.SelectedIndex);
+        }
+
+        private void SetupClassesTab()
+        {
+            ClassListBox.Items.Clear();
+            foreach (var item in Data.ClassNameList)
+            {
+                ClassListBox.Items.Add(item);
+            }
+            ClassListBox.Items.Refresh();
+        }
+
+        private void ClassListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ClassInfoText.Text = Data.ClassInfo(ClassListBox.SelectedIndex);
+        }
+
+        private void SetupRacesTab()
+        {
+            RacesListBox.Items.Clear();
+            foreach (var item in Data.RaceNameList)
+            {
+                RacesListBox.Items.Add(item);
+            }
+            RacesListBox.Items.Refresh();
+        }
+
+        private void RacesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RacesInfoText.Text = Data.RaceInfo(RacesListBox.SelectedIndex);
+        }
+
+        public void SetupMonsterTab()
+        {
+            MonsterListBox.Items.Clear();
+            foreach (var item in Data.MonsterNameList)
+            {
+                MonsterListBox.Items.Add(item);
+            }
+            MonsterListBox.Items.Refresh();
+        }
+
+        private void MonsterListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MonsterInfoText.Text = Data.MonsterInfo(MonsterListBox.SelectedIndex);
+        }
+
+        public void SetupEquipmentTab()
+        {
+            EquipmentListBox.Items.Clear();
+            foreach (var item in Data.EquipmentNameList)
+            {
+                EquipmentListBox.Items.Add(item);
+            }
+            EquipmentListBox.Items.Refresh();
+        }
+
+        private void EquipmentListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            EquipmentInfoText.Text = Data.EquipmentInfo(EquipmentListBox.SelectedIndex);
+        }
+
+        private void SetupMagicItemTab()
+        {
+            MagicItemListBox.Items.Clear();
+            foreach (var item in Data.MagicItemNameList)
+            {
+                MagicItemListBox.Items.Add(item);
+            }
+            MagicItemListBox.Items.Refresh();
+        }
+
+        private void MagicItemListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MagicItemInfoText.Text = Data.MagicItemInfo(MagicItemListBox.SelectedIndex);
+        }
     }
 }

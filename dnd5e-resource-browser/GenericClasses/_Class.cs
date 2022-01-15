@@ -18,7 +18,7 @@ namespace dnd5e_resource_browser
         public string class_levels;
         public object multi_classing;
         public APIReference[] subclasses;
-        public object spellcasting;
+        public SpellCasting spellcasting;
         public string spells;
         public string url;
     }

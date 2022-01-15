@@ -14,8 +14,41 @@
                     <Button x:Name="GoButton" Content="FetchDatabase" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Click="GoButton_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="SpellTab" Header="TabItem">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem x:Name="SpellTab" Header="Spells">
+                <Grid Background="#FFE5E5E5">
+                    <ListBox x:Name="SpellListBox" Margin="10,10,665,10" SelectionChanged="SpellListBox_SelectionChanged"/>
+                    <TextBox x:Name="SpellInfoText" HorizontalAlignment="Left" Margin="207,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="620" Height="326"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="ClassesTab" Header="Classes">
+                <Grid Background="#FFE5E5E5">
+                    <ListBox x:Name="ClassListBox" Margin="10,10,665,10" SelectionChanged="ClassListBox_SelectionChanged"/>
+                    <TextBox x:Name="ClassInfoText" HorizontalAlignment="Left" Margin="207,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="620" Height="326"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="RacesTab" Header="Races">
+                <Grid Background="#FFE5E5E5">
+                    <ListBox x:Name="RacesListBox" Margin="10,10,665,10" SelectionChanged="RacesListBox_SelectionChanged"/>
+                    <TextBox x:Name="RacesInfoText" HorizontalAlignment="Left" Margin="207,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="620" Height="326"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="MonstersTab" Header="Monsters">
+                <Grid Background="#FFE5E5E5">
+                    <ListBox x:Name="MonsterListBox" Margin="10,10,665,10" SelectionChanged="MonsterListBox_SelectionChanged"/>
+                    <TextBox x:Name="MonsterInfoText" HorizontalAlignment="Left" Margin="207,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="620" Height="326"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="EquipmentTab" Header="Equipment">
+                <Grid Background="#FFE5E5E5">
+                    <ListBox x:Name="EquipmentListBox" Margin="10,10,665,10" SelectionChanged="EquipmentListBox_SelectionChanged"/>
+                    <TextBox x:Name="EquipmentInfoText" HorizontalAlignment="Left" Margin="207,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="620" Height="326"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="MagicItemTab" Header="MagicItems">
+                <Grid Background="#FFE5E5E5">
+                    <ListBox x:Name="MagicItemListBox" Margin="10,10,665,10" SelectionChanged="MagicItemListBox_SelectionChanged"/>
+                    <TextBox x:Name="MagicItemInfoText" HorizontalAlignment="Left" Margin="207,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="620" Height="326"/>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

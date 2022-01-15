@@ -15,8 +15,8 @@ namespace dnd5e_resource_browser
         public string weapon_range;
         public string category_range;
         public Cost cost;
-        public object damage;
-        public object two_handed_damage;
+        public WeaponDamage damage;
+        public WeaponDamage two_handed_damage;
         public object range;
         public double weight;
         public APIReference[] properties;

@@ -67,5 +67,23 @@ namespace dnd5e_resource_browser
         public string unit;
     }
 
+    public class SpellCasting
+    {
+        public int level;
+        public APIReference spellcasting_ability;
+        public SpellCastingRef[] info;
+    }
+
+    public class SpellCastingRef
+    {
+        public string[] desc;
+        public string name;
+    }
+
+    public class WeaponDamage
+    {
+        public string damage_dice;
+        public APIReference damge_type;
+    }
 
 }
